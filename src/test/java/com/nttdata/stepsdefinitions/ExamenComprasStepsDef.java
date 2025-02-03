@@ -32,7 +32,7 @@ public class ExamenComprasStepsDef {
             driver.get("https://qalab.bensg.com/store/pe/");
             screenShot();
         } catch (Exception e) {
-            Assertions.fail(mensajeError); // Mensaje de error
+            Assertions.fail(mensajeError); // Mensaje de errorr
             screenShot();
             driver.close();
         }

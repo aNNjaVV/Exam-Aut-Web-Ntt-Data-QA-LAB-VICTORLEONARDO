@@ -20,7 +20,7 @@ public class ExamenComprasSteps {
     }
 
     ExamenComprasPages examenComprasPages = new ExamenComprasPages();
-    //-----------------------clothes----------------//
+    //-----------------------clothes----------------/
 
     public void seleccionarCategoria(String category) {
         seleccionarElemento(By.xpath("//*[@id='_desktop_top_menu']//a[contains(normalize-space(),'" + category + "')]"));
