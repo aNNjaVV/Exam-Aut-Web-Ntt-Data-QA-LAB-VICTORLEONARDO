@@ -17,3 +17,19 @@ Feature: Product - Store
       | maia@gmail.com | maia12345*     | Clothes   | Men         |
       | maia@gmail.com | wrongpassword     |Clothes   | Men         |
       | maia@gmail.com | maia12345*      | Shoes    | Casual         |
+
+
+
+  #@ignore
+ # @testExamenEscenario2
+#  Scenario Outline: Validación del precio de un producto
+#    Given estoy en la página de la tienda
+ #   And me logueo con mi usuario "<usuario>" y clave "<password>"
+ #   When
+
+   # Examples:
+     # | usuario                | password          | category  | subCategory |
+   #   | maia@gmail.com | maia12345*     | Clothes   | Men         |
+    #  | maia@gmail.com | wrongpassword     |Clothes   | Men         |
+     # | maia@gmail.com | maia12345*      | Shoes    | Casual         |
+

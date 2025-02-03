@@ -99,26 +99,23 @@ public class ExamenComprasStepsDef {
 
 
     @Then("valido en el popup la confirmación del producto agregado")
-    public void validoElPopupLaConfirmaciónDelProductoAgregado() {
+    public void validoPopupConfirmacionProductoAgregado() {
 
         final String mensajeError = "Error: Los datos del producto en el popup no coinciden con los esperados. :/";
         final String mensajeExito = "El producto fue confirmado correctamente en el popup. :)";
 
         try {
             examenComprasSteps(driver).agregarAlCarrito();
-            String productName = examenComprasSteps(driver).getNombre();
-            String productPrice = examenComprasSteps(driver).getPrecio();
-            String productSize = examenComprasSteps(driver).getTamano();
-            String productColor = examenComprasSteps(driver).getColor();
-            String productQuantity = examenComprasSteps(driver).getCantidadPro();
 
-// VALIDAMOS QUE EL PRODUCTO QUE HAYAMOS ESCOGIDO TENGA ESTA IFNORMACION:
-            Assertions.assertEquals("Hummingbird printed t-shirt", productName);
-            Assertions.assertEquals("S/ 19.12", productPrice);
-            Assertions.assertEquals("S", productSize);
-            Assertions.assertEquals("Blanco", productColor);
-            Assertions.assertEquals("10", productQuantity);
+            var producto = examenComprasSteps(driver);
 
+            Assertions.assertAll(
+                    () -> Assertions.assertEquals("Hummingbird printed t-shirt", producto.getNombre()),
+                    () -> Assertions.assertEquals("S/ 19.12", producto.getPrecio()),
+                    () -> Assertions.assertEquals("S", producto.getTamano()),
+                    () -> Assertions.assertEquals("Blanco", producto.getColor()),
+                    () -> Assertions.assertEquals("10", producto.getCantidadPro())
+            );
 
             System.out.println(mensajeExito);
             screenShot();
@@ -128,7 +125,6 @@ public class ExamenComprasStepsDef {
             driver.close();
         }
     }
-
 
 
     @And("valido en el popup que el monto total sea calculado correctamente")
