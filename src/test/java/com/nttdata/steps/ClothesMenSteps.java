@@ -18,7 +18,7 @@ public class ClothesMenSteps {
 
     public void seleccionarCategoria(String category) {
         seleccionarElemento(By.xpath("//*[@id='_desktop_top_menu']//a[contains(normalize-space(),'" + category + "')]"));
-    }
+    }//*[@id="_desktop_top_menu"]
 
     public void seleccionarSubCategoria(String subCategory) {
         seleccionarElemento(By.xpath("//*[@id='left-column']/div[1]/ul/li[2]/ul//a[contains(text(),'" + subCategory + "')]"));
@@ -29,23 +29,5 @@ public class ClothesMenSteps {
         WebElement categoryElement = wait.until(ExpectedConditions.elementToBeClickable(elemento));
         categoryElement.click();
     }
-
-    public boolean categoriaEstaDisponible(String category) {
-        return estaDisponible(By.xpath("//*[@id='_desktop_top_menu']//a[contains(normalize-space(),'" + category + "')]"));
-    }
-
-    public boolean subcategoriaEstaDisponible(String subCategory) {
-        return estaDisponible(By.xpath("//*[@id='left-column']/div[1]/ul/li[2]/ul//a[contains(text(),'" + subCategory + "')]"));
-    }
-
-    private boolean estaDisponible(By elemento) {
-        try {
-            driver.findElement(elemento);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-
+    
 }

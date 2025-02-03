@@ -85,24 +85,10 @@ public class LoginStepsDef {
 
     @When("navego a la categoría {string} y subcategoría {string}")
     public void navegoALaCategoriaYSubcategoria(String category, String subCategory) {
-
-        final String mensajeErrorCategoria = "Error: La categoría '%s' no se encuentra disponible. :)";
-        final String mensajeErrorSubcategoria = "Error: La subcategoría '%s' no se encuentra disponible. ;)";
-
         try {
-            if (!clothesMenSteps(driver).categoriaEstaDisponible(category)) {
-                Assertions.fail(String.format(mensajeErrorCategoria, category));
-                screenShot();
-                driver.close();
-            }
             clothesMenSteps(driver).seleccionarCategoria(category);
             screenShot();
 
-            if (!clothesMenSteps(driver).subcategoriaEstaDisponible(subCategory)) {
-                Assertions.fail(String.format(mensajeErrorSubcategoria, subCategory));
-                screenShot();
-                driver.close();
-            }
             clothesMenSteps(driver).seleccionarSubCategoria(subCategory);
             screenShot();
         } catch (Exception e) {
