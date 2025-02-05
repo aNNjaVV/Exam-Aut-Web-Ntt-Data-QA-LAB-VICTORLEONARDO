@@ -1,6 +1,6 @@
 package com.nttdata.steps;
 
-import com.nttdata.page.CarritoComprasPage;
+import com.nttdata.page.ExamenComprasPages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,14 +11,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class CarritoComprasSteps {
+public class ExamenComprasSteps {
 
     private WebDriver driver;
     //constructor
-    public CarritoComprasSteps(WebDriver driver){
+    public ExamenComprasSteps(WebDriver driver){
         this.driver = driver;
     }
 
+    ExamenComprasPages examenComprasPages = new ExamenComprasPages();
     //-----------------------clothes----------------//
 
     public void seleccionarCategoria(String category) {
@@ -37,22 +38,22 @@ public class CarritoComprasSteps {
 
 
     public String obtenerTitulo() {
-        WebElement tituloElemento = this.driver.findElement(CarritoComprasPage.titulo);
+        WebElement tituloElemento = this.driver.findElement(examenComprasPages.titulo);
         return tituloElemento.getText();
     }
 
     public int obetnerCantidad() {
-        String cantidadTexto = this.driver.findElement(CarritoComprasPage.cantidad).getAttribute("value").trim();
+        String cantidadTexto = this.driver.findElement(examenComprasPages.cantidad).getAttribute("value").trim();
         return Integer.parseInt(cantidadTexto);
     }
 
     public double obtenerPrecio() {
-        WebElement precioElemento = this.driver.findElement(CarritoComprasPage.precio);
+        WebElement precioElemento = this.driver.findElement(examenComprasPages.precio);
         return convertirPrecio(precioElemento.getText());
     }
 
     public double obtenerPrecioTotal() {
-        WebElement precioTotalElemento = this.driver.findElement(CarritoComprasPage.precioTotal);
+        WebElement precioTotalElemento = this.driver.findElement(examenComprasPages.precioTotal);
         return convertirPrecio(precioTotalElemento.getText());
     }
 
@@ -64,62 +65,62 @@ public class CarritoComprasSteps {
 
 
     public void selectProduct() {
-        this.driver.findElement(CarritoComprasPage.producto).click();
+        this.driver.findElement(examenComprasPages.producto).click();
     }
 
     public void cantidadProd(String quantity) {
-        WebElement cantidadElemento = driver.findElement(CarritoComprasPage.cantidadProductors);
+        WebElement cantidadElemento = driver.findElement(examenComprasPages.cantidadProductors);
         cantidadElemento.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         cantidadElemento.sendKeys(quantity);
         // cantidadElemento.sendKeys("5");
         //
 
         new WebDriverWait(driver, Duration.ofSeconds(40))
-                .until(ExpectedConditions.visibilityOfElementLocated(CarritoComprasPage.agregarAlCarrito));
+                .until(ExpectedConditions.visibilityOfElementLocated(examenComprasPages.agregarAlCarrito));
     }
 
 
     public void agregarAlCarrito() {
-        WebElement botonAgregar = driver.findElement(CarritoComprasPage.agregarAlCarrito);
+        WebElement botonAgregar = driver.findElement(examenComprasPages.agregarAlCarrito);
         botonAgregar.click();
     }
 
 
     public void comprarBoton() {
-        WebElement botonComprar = driver.findElement(CarritoComprasPage.comprar);
+        WebElement botonComprar = driver.findElement(examenComprasPages.comprar);
         botonComprar.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
     public String getNombre() {
-        return esperarYRecuperarTexto(CarritoComprasPage.nombre);
+        return esperarYRecuperarTexto(examenComprasPages.nombre);
     }
 
     public String getPrecio() {
-        return esperarYRecuperarTexto(CarritoComprasPage.precioCarro);
+        return esperarYRecuperarTexto(examenComprasPages.precioCarro);
     }
 
     public String getTamano() {
-        return esperarYRecuperarTexto(CarritoComprasPage.tamano);
+        return esperarYRecuperarTexto(examenComprasPages.tamano);
     }
 
     public String getColor() {
-        return esperarYRecuperarTexto(CarritoComprasPage.color);
+        return esperarYRecuperarTexto(examenComprasPages.color);
     }
 
     public String getCantidadPro() {
-        return esperarYRecuperarTexto(CarritoComprasPage.cantidadPro);
+        return esperarYRecuperarTexto(examenComprasPages.cantidadPro);
     }
 
     public String getPrecioTotal() {
-        return esperarYRecuperarTexto(CarritoComprasPage.precioTotalCarrto);
+        return esperarYRecuperarTexto(examenComprasPages.precioTotalCarrto);
     }
 
     private String esperarYRecuperarTexto(By elemento) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));  // Reducción de la espera implícita
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(CarritoComprasPage.comprar));  // Espera explícita
+        wait.until(ExpectedConditions.visibilityOfElementLocated(examenComprasPages.comprar));  // Espera explícita
         return this.driver.findElement(elemento).getText().trim();  // Recupera el texto y elimina espacios innecesarios
     }
 

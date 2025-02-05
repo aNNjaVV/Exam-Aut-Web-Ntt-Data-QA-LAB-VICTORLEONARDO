@@ -1,23 +1,23 @@
 package com.nttdata.stepsdefinitions;
 
-import com.nttdata.steps.CarritoComprasSteps;
+import com.nttdata.steps.ExamenComprasSteps;
 import com.nttdata.steps.LoginSteps;
-import io.cucumber.java.en.When;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
 import static com.nttdata.core.DriverManager.getDriver;
 import static com.nttdata.core.DriverManager.screenShot;
 
-public class LoginStepsDef {
+public class ExamenComprasStepsDef {
 
     private WebDriver driver;
 
-    private CarritoComprasSteps carritoComprasSteps(WebDriver driver) {
-        return new CarritoComprasSteps(driver);
+    private ExamenComprasSteps examenComprasSteps(WebDriver driver) {
+        return new ExamenComprasSteps(driver);
     };
 
     private LoginSteps loginSteps(WebDriver driver) {
@@ -66,10 +66,10 @@ public class LoginStepsDef {
     @When("navego a la categoría {string} y subcategoría {string}")
     public void navegoALaCategoriaYSubcategoria(String category, String subCategory) {
         try {
-            carritoComprasSteps(driver).seleccionarCategoria(category);
+            examenComprasSteps(driver).seleccionarCategoria(category);
             screenShot();
 
-            carritoComprasSteps(driver).seleccionarSubCategoria(subCategory);
+            examenComprasSteps(driver).seleccionarSubCategoria(subCategory);
             screenShot();
         } catch (Exception e) {
             Assertions.fail("Error al navegar a la categoría y subcategoría. Detalles: " + e.getMessage());
@@ -84,8 +84,8 @@ public class LoginStepsDef {
         final String mensajeExito = "El producto fue agregado correctamente al carrito. ;=)";
 
         try {
-            carritoComprasSteps(driver).selectProduct();
-            carritoComprasSteps(driver).cantidadProd("10");
+            examenComprasSteps(driver).selectProduct();
+            examenComprasSteps(driver).cantidadProd("10");
 
             screenShot();
 
@@ -105,14 +105,14 @@ public class LoginStepsDef {
         final String mensajeExito = "El producto fue confirmado correctamente en el popup. :)";
 
         try {
-            carritoComprasSteps(driver).agregarAlCarrito();
-            String productName = carritoComprasSteps(driver).getNombre();
-            String productPrice = carritoComprasSteps(driver).getPrecio();
-            String productSize = carritoComprasSteps(driver).getTamano();
-            String productColor = carritoComprasSteps(driver).getColor();
-            String productQuantity = carritoComprasSteps(driver).getCantidadPro();
+            examenComprasSteps(driver).agregarAlCarrito();
+            String productName = examenComprasSteps(driver).getNombre();
+            String productPrice = examenComprasSteps(driver).getPrecio();
+            String productSize = examenComprasSteps(driver).getTamano();
+            String productColor = examenComprasSteps(driver).getColor();
+            String productQuantity = examenComprasSteps(driver).getCantidadPro();
 
-
+// VALIDAMOS QUE EL PRODUCTO QUE HAYAMOS ESCOGIDO TENGA ESTA IFNORMACION:
             Assertions.assertEquals("Hummingbird printed t-shirt", productName);
             Assertions.assertEquals("S/ 19.12", productPrice);
             Assertions.assertEquals("S", productSize);
@@ -130,15 +130,16 @@ public class LoginStepsDef {
     }
 
 
+
     @And("valido en el popup que el monto total sea calculado correctamente")
     public void validoEnElPopupQueElMontoTotalSeaCalculadoCorrectamente() {
         final String mensajeError = "Error: El monto total calculado en el popup no coincide con el esperado.";
         final String mensajeExito = "El monto total fue calculado correctamente en el popup.";
 
         try {
-            double precioProducto = Double.parseDouble(carritoComprasSteps(driver).getPrecio().replace("S/ ", "").trim());
-            int cantidad = Integer.parseInt(carritoComprasSteps(driver).getCantidadPro());
-            double total = Double.parseDouble(carritoComprasSteps(driver).getPrecioTotal().replace("S/ ", "").trim());
+            double precioProducto = Double.parseDouble(examenComprasSteps(driver).getPrecio().replace("S/ ", "").trim());
+            int cantidad = Integer.parseInt(examenComprasSteps(driver).getCantidadPro());
+            double total = Double.parseDouble(examenComprasSteps(driver).getPrecioTotal().replace("S/ ", "").trim());
             double totalEsp = precioProducto * cantidad;
 
 
@@ -155,12 +156,14 @@ public class LoginStepsDef {
     }
 
 
+
+
     @When("finalizo la compra")
     public void finalizoLaCompra() {
         final String mensajeError = "Error: No se pudo completar la compra. El proceso ha fallado.";
         final String mensajeExito = "Compra completada exitosamente.";
         try {
-            carritoComprasSteps(driver).comprarBoton();
+            examenComprasSteps(driver).comprarBoton();
             System.out.println(mensajeExito);
             screenShot();
         } catch (Exception e) {
@@ -170,12 +173,14 @@ public class LoginStepsDef {
         }
     }
 
+
+
     @Then("valido el titulo de la pagina del carrito")
     public void validoElTituloDeLaPaginaDelCarrito() {
         final String mensajeError = "Error: El título de la página del carrito no coincide.";
         final String mensajeExito = "El título de la página del carrito es correcto.";
         try {
-            String titulo = carritoComprasSteps(driver).obtenerTitulo();
+            String titulo = examenComprasSteps(driver).obtenerTitulo();
             Assertions.assertEquals("CARRITO", titulo);
             //Assertions.assertEquals("TIENDITA", titulo);
             System.out.println(mensajeExito);
@@ -188,15 +193,16 @@ public class LoginStepsDef {
     }
 
 
+
     @And("vuelvo a validar el calculo de precios en el carrito")
     public void vuelvoAValidarElCalculoDePreciosEnElCarrito() {
         final String mensajeError = "Error: El cálculo del precio total en el carrito es incorrecto.";
         final String mensajeExito = "El cálculo del precio total en el carrito es correcto.";
 
         try {
-            double precio = carritoComprasSteps(driver).obtenerPrecio();
-            int cant = carritoComprasSteps(driver).obetnerCantidad();
-            double total = carritoComprasSteps(driver).obtenerPrecioTotal();
+            double precio = examenComprasSteps(driver).obtenerPrecio();
+            int cant = examenComprasSteps(driver).obetnerCantidad();
+            double total = examenComprasSteps(driver).obtenerPrecioTotal();
 
             double totalEsp = precio * cant;
             double delta = 0.0001;
@@ -211,6 +217,7 @@ public class LoginStepsDef {
             driver.close();
         }
     }
+
 
 
 
