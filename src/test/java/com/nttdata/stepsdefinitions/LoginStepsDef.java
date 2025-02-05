@@ -1,17 +1,13 @@
 package com.nttdata.stepsdefinitions;
 
 import com.nttdata.steps.CarritoComprasSteps;
-import com.nttdata.steps.ClothesMenSteps;
 import com.nttdata.steps.LoginSteps;
-import com.nttdata.steps.ProductosSteps;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.And;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import static com.nttdata.core.DriverManager.getDriver;
 import static com.nttdata.core.DriverManager.screenShot;
@@ -20,29 +16,13 @@ public class LoginStepsDef {
 
     private WebDriver driver;
 
-    private ClothesMenSteps clothesMenSteps(WebDriver driver) {
-        return new ClothesMenSteps(driver);
-    }
-
-    ;
-
-    private ProductosSteps productosSteps(WebDriver driver) {
-        return new ProductosSteps(driver);
-    }
-
-    ;
-
     private CarritoComprasSteps carritoComprasSteps(WebDriver driver) {
         return new CarritoComprasSteps(driver);
-    }
-
-    ;
+    };
 
     private LoginSteps loginSteps(WebDriver driver) {
         return new LoginSteps(driver);
-    }
-
-    ;
+    };
 
     @Given("estoy en la página de la tienda")
     public void estoyEnLaPáginaDeLaTienda() {
@@ -86,10 +66,10 @@ public class LoginStepsDef {
     @When("navego a la categoría {string} y subcategoría {string}")
     public void navegoALaCategoriaYSubcategoria(String category, String subCategory) {
         try {
-            clothesMenSteps(driver).seleccionarCategoria(category);
+            carritoComprasSteps(driver).seleccionarCategoria(category);
             screenShot();
 
-            clothesMenSteps(driver).seleccionarSubCategoria(subCategory);
+            carritoComprasSteps(driver).seleccionarSubCategoria(subCategory);
             screenShot();
         } catch (Exception e) {
             Assertions.fail("Error al navegar a la categoría y subcategoría. Detalles: " + e.getMessage());
@@ -104,8 +84,8 @@ public class LoginStepsDef {
         final String mensajeExito = "El producto fue agregado correctamente al carrito. ;=)";
 
         try {
-            productosSteps(driver).selectProduct();
-            productosSteps(driver).cantidadProd("10");
+            carritoComprasSteps(driver).selectProduct();
+            carritoComprasSteps(driver).cantidadProd("10");
 
             screenShot();
 
@@ -125,12 +105,12 @@ public class LoginStepsDef {
         final String mensajeExito = "El producto fue confirmado correctamente en el popup. :)";
 
         try {
-            productosSteps(driver).agregarAlCarrito();
-            String productName = productosSteps(driver).getNombre();
-            String productPrice = productosSteps(driver).getPrecio();
-            String productSize = productosSteps(driver).getTamano();
-            String productColor = productosSteps(driver).getColor();
-            String productQuantity = productosSteps(driver).getCantidadPro();
+            carritoComprasSteps(driver).agregarAlCarrito();
+            String productName = carritoComprasSteps(driver).getNombre();
+            String productPrice = carritoComprasSteps(driver).getPrecio();
+            String productSize = carritoComprasSteps(driver).getTamano();
+            String productColor = carritoComprasSteps(driver).getColor();
+            String productQuantity = carritoComprasSteps(driver).getCantidadPro();
 
 
             Assertions.assertEquals("Hummingbird printed t-shirt", productName);
@@ -156,9 +136,9 @@ public class LoginStepsDef {
         final String mensajeExito = "El monto total fue calculado correctamente en el popup.";
 
         try {
-            double precioProducto = Double.parseDouble(productosSteps(driver).getPrecio().replace("S/ ", "").trim());
-            int cantidad = Integer.parseInt(productosSteps(driver).getCantidadPro());
-            double total = Double.parseDouble(productosSteps(driver).getPrecioTotal().replace("S/ ", "").trim());
+            double precioProducto = Double.parseDouble(carritoComprasSteps(driver).getPrecio().replace("S/ ", "").trim());
+            int cantidad = Integer.parseInt(carritoComprasSteps(driver).getCantidadPro());
+            double total = Double.parseDouble(carritoComprasSteps(driver).getPrecioTotal().replace("S/ ", "").trim());
             double totalEsp = precioProducto * cantidad;
 
 
@@ -180,7 +160,7 @@ public class LoginStepsDef {
         final String mensajeError = "Error: No se pudo completar la compra. El proceso ha fallado.";
         final String mensajeExito = "Compra completada exitosamente.";
         try {
-            productosSteps(driver).comprarBoton();
+            carritoComprasSteps(driver).comprarBoton();
             System.out.println(mensajeExito);
             screenShot();
         } catch (Exception e) {

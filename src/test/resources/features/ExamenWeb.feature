@@ -1,6 +1,6 @@
 @ExamenWeb
 Feature: Product - Store
-  @test
+  @testExamen
   Scenario Outline: Validación del precio de un producto
     Given estoy en la página de la tienda
     And me logueo con mi usuario "<usuario>" y clave "<password>"
